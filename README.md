@@ -1,6 +1,6 @@
 # Basic Auth
 
->  Build a REST API using Express, by creating a proper series of endpoints that perform CRUD
+>  **Authentication System Phase 1:** Deploy an Express server that implements Basic Authentication, with signup and signin capabilities, using a Postgres database for storage.
 
 ## Installation
 
@@ -15,21 +15,28 @@ SQL_CONNECTION_STRING={SQL_database_link}
 
 ## Usage
 
-Send a request:
-
+Signup request:
 ```text
-method: GET || POST || PUT || DELETE
-route: /api/pet || /api/pet/:id || /api/person || /api/person/:id
-query:
-  name={name_of_person} //for person
-  age={age_of_person} //for person
-  
-  name={name_of_pet} //for pet
-  personId={person_id} //for pet
+method: POST
+route: /signup
+json: {
+  username: 'Koko'
+  password: 'OnlyDogsAllowed'
+}
+```
+
+Signin reques:
+```text
+method: POST
+route: /signin
+headers: Authentication Basic {
+  username: 'Koko'
+  password: 'OnlyDogsAllowed'
+}
 ```
 
 ## UML Diagram
-![Basic Auth UML Diagram]()
+![Basic Auth UML Diagram](./public/images/401-class-06-lab.png)
 
 ## Deployed link
 > This is deployed on Render at:

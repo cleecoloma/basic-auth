@@ -29,6 +29,15 @@ describe('Testing our auth server', () => {
     expect(createUserResponse.body.username).toEqual('Koko');
   });
 
+  test('User should be able to create an account', async () => {
+    let createUserResponse = await request.post('/signup').send({
+      username: 'Koko',
+      password: 'OnlyDogsAllowed',
+    });
+    expect(createUserResponse.status).toEqual(200);
+    expect(createUserResponse.body.username).toEqual('Koko');
+  });
+
   test('User should be able to login to an existing account', async () => {
     let createUserResponse = await request.post('/signup').send({
       username: 'Jojo',
