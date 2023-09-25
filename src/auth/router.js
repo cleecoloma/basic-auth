@@ -2,13 +2,12 @@
 
 const { UsersModel } = require('./models');
 const bcrypt = require('bcrypt');
-const base64 = require('base-64');
 
 const handleSignIn = async (request, response) => {
-  let basicHeaderParts = request.headers.authorization.split(' '); // ['Basic', 'am9objpmb28=']
-  let encodedString = basicHeaderParts.pop(); // am9objpmb28=
-  let decodedString = base64.decode(encodedString); // "username:password"
-  let [username, password] = decodedString.split(':'); // username, password
+  // let basicHeaderParts = request.headers.authorization.split(' '); // ['Basic', 'am9objpmb28=']
+  // let encodedString = basicHeaderParts.pop(); // am9objpmb28=
+  // let decodedString = base64.decode(encodedString); // "username:password"
+  // let [username, password] = decodedString.split(':'); // username, password
 
   /*
     Now that we finally have username and password, let's see if it's valid
@@ -17,6 +16,8 @@ const handleSignIn = async (request, response) => {
        - bcrypt does this by re-encrypting the plaintext password and comparing THAT
     3. Either we're valid or we throw an error
   */
+  let { username, password } = request.body;
+  console.log("username and password: ", username, password)
   try {
     const user = await UsersModel.findOne({ where: { username: username } });
     const valid = await bcrypt.compare(password, user.password);

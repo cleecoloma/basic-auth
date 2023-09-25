@@ -5,6 +5,7 @@ const express = require('express');
 const { handleSignIn, handleSignUp } = require('./auth/router.js');
 const error404 = require('./middleware/404.js')
 const error500 = require('./middleware/500.js');
+const basicAuth = require('./auth/middleware/basic.js');
 
 // Prepare the express app
 const app = express();
@@ -19,7 +20,7 @@ app.use(express.urlencoded({ extended: true }));
 app.post('/signup', handleSignUp);
 
 // Signin Route -- login with username and password
-app.post('/signin', handleSignIn);
+app.post('/signin', basicAuth, handleSignIn);
 
 // If error is path or method related then throw error 404 else throw error 500
 app.use((error, request, response, next) => {
