@@ -38,12 +38,8 @@ headers: Authentication Basic {
 ## UML Diagram
 ![Basic Auth UML Diagram](./public/images/401-class-06-lab.png)
 
-## Deployed link
-> This is deployed on Render at:
-* [Main/Production Branch]()
-
 ## PR link
-[PR link Class 06]()
+[PR link Class 06](https://github.com/cleecoloma/basic-auth/pull/1)
 
 ## Contributors
 > Chester Lee Coloma
