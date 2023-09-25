@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const base64 = require('base-64');
 
 const handleSignIn = async (request, response) => {
+  console.log("At signin: ", request.headers);
   let basicHeaderParts = request.headers.authorization.split(' '); // ['Basic', 'am9objpmb28=']
   let encodedString = basicHeaderParts.pop(); // am9objpmb28=
   let decodedString = base64.decode(encodedString); // "username:password"
@@ -19,9 +20,11 @@ const handleSignIn = async (request, response) => {
   */
   try {
     const user = await UsersModel.findOne({ where: { username: username } });
+    console.log("Heres the user info: ", user);
     const valid = await bcrypt.compare(password, user.password);
+    console.log("Is it valid? ", valid);
     if (valid) {
-      res.status(200).json(user);
+      response.status(200).json(user);
     } else {
       throw new Error('Invalid User');
     }
