@@ -12,8 +12,6 @@ const app = express();
 // Process JSON input and put the data on req.body
 app.use(express.json());
 
-// const sequelize = new Sequelize(process.env.DATABASE_URL);
-
 // Process FORM input and put the data on req.body
 app.use(express.urlencoded({ extended: true }));
 
@@ -23,15 +21,14 @@ app.post('/signup', handleSignUp);
 // Signin Route -- login with username and password
 app.post('/signin', handleSignIn);
 
-// make sure our tables are created, start up the HTTP server.
-// sequelize
-//   .sync()
-//   .then(() => {
-//     app.listen(3000, () => console.log('server up'));
-//   })
-//   .catch((e) => {
-//     console.error('Could not start server', e.message);
-//   });
+// If error is path or method related then throw error 404 else throw error 500
+app.use((error, request, response, next) => {
+  if (error.path || error.method) {
+    error404(error, request, response, next);
+  } else {
+    error500(error, request, response, next);
+  }
+});
 
   module.exports = {
     app,
