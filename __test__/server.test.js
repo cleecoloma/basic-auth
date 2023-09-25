@@ -20,13 +20,18 @@ afterAll(async () => {
 });
 
 describe('Testing our auth server', () => {
-  test('User should be able to create an account', async () => {
-    let createUserResponse = await request.post('/signup').send({
-      username: 'Koko',
-      password: 'OnlyDogsAllowed',
-    });
-    expect(createUserResponse.status).toEqual(200);
-    expect(createUserResponse.body.username).toEqual('Koko');
+  test('Will this return a 404 error - bad path', async () => {
+    let response = await request.get('/notAnEndpoint');
+
+    expect(response.status).toEqual(404);
+    expect(response.body.message).toEqual('Error 404 - Incorrect Path');
+  });
+
+  test('Will this return a 404 error - bad method', async () => {
+    let response = await request.patch('/signin');
+
+    expect(response.status).toEqual(404);
+    expect(response.body.message).toEqual('Error 404 - Incorrect Method');
   });
 
   test('User should be able to create an account', async () => {
