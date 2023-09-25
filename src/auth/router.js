@@ -1,5 +1,9 @@
 'use strict';
 
+const { UsersModel } = require('./models');
+const bcrypt = require('bcrypt');
+const base64 = require('base-64');
+
 const handleSignIn = async (request, response) => {
   let basicHeaderParts = request.headers.authorization.split(' '); // ['Basic', 'am9objpmb28=']
   let encodedString = basicHeaderParts.pop(); // am9objpmb28=
@@ -14,7 +18,7 @@ const handleSignIn = async (request, response) => {
     3. Either we're valid or we throw an error
   */
   try {
-    const user = await Users.findOne({ where: { username: username } });
+    const user = await UsersModel.findOne({ where: { username: username } });
     const valid = await bcrypt.compare(password, user.password);
     if (valid) {
       res.status(200).json(user);
@@ -27,9 +31,11 @@ const handleSignIn = async (request, response) => {
 };
 
 const handleSignUp = async (request, response) => {
+  // console.log('Request body: ', request.body);
   try {
     request.body.password = await bcrypt.hash(request.body.password, 10);
-    const record = await Users.create(request.body);
+    // console.log('Encrypted password: ', request.body.password);
+    const record = await UsersModel.create(request.body);
     response.status(200).json(record);
   } catch (e) {
     response.status(403).send('Error Creating User');
@@ -39,4 +45,4 @@ const handleSignUp = async (request, response) => {
 module.exports = {
   handleSignIn,
   handleSignUp,
-}
+};

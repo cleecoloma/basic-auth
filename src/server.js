@@ -2,8 +2,6 @@
 
 // 3rd Party Resources
 const express = require('express');
-const bcrypt = require('bcrypt');
-const base64 = require('base-64');
 const { handleSignIn, handleSignUp } = require('./auth/router.js');
 const error404 = require('./middleware/404.js')
 const error500 = require('./middleware/500.js');
