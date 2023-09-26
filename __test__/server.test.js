@@ -19,7 +19,7 @@ afterAll(async () => {
   await sequelize.drop();
 });
 
-describe('Testing our auth server', () => {
+describe(' Testing our auth server', () => {
   test('Will this return a 404 error - bad path', async () => {
     let response = await request.get('/notAnEndpoint');
 
@@ -27,7 +27,7 @@ describe('Testing our auth server', () => {
     expect(response.body.message).toEqual('Error 404 - Incorrect Path');
   });
 
-  test('Will this return a 404 error - bad method', async () => {
+  test('Will this return a 404 error - bad method ', async () => {
     let response = await request.patch('/signin');
 
     expect(response.status).toEqual(404);
@@ -43,7 +43,7 @@ describe('Testing our auth server', () => {
     expect(createUserResponse.body.username).toEqual('Koko');
   });
 
-  test('User should be able to login to an existing account', async () => {
+  test('User should be able to login to an existing account.', async () => {
     let createUserResponse = await request.post('/signup').send({
       username: 'Jojo',
       password: 'DogsGreaterThanCats',
