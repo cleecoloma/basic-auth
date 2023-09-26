@@ -39,7 +39,7 @@ describe(' Testing our auth server', () => {
       username: 'Koko',
       password: 'OnlyDogsAllowed',
     });
-    expect(createUserResponse.status).toEqual(200);
+    expect(createUserResponse.status).toEqual(201);
     expect(createUserResponse.body.username).toEqual('Koko');
   });
 

@@ -23,7 +23,7 @@ const handleSignUp = async (request, response) => {
   try {
     request.body.password = await bcrypt.hash(request.body.password, 10);
     const record = await UsersModel.create(request.body);
-    response.status(200).json(record);
+    response.status(201).json(record);
   } catch (e) {
     response.status(403).send('Error Creating User');
   }
